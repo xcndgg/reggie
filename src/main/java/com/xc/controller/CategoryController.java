@@ -1,5 +1,6 @@
 package com.xc.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xc.common.R;
 import com.xc.entity.Category;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.PushbackInputStream;
+import java.util.List;
 
 @RestController
 @RequestMapping("/category")
@@ -53,6 +55,13 @@ public class CategoryController {
         }
         return R.error("该分类关联了菜品或者套餐，不能删除");
     }
+    @GetMapping("/list")
+    public R<List<Category>> getAllCategory(Category category){
+        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(category.getType() != null,Category::getType,category.getType());
+        List<Category> list = categoryService.list(queryWrapper);
+        return R.success(list);
 
+    }
 
 }
