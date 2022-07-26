@@ -54,11 +54,7 @@ public class EmployeeController {
     @PostMapping
     public R<String> addEmp(HttpServletRequest request,@RequestBody Employee employee){
         employee.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes(StandardCharsets.UTF_8)));
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
         Long emId = (Long) request.getSession().getAttribute("employee");
-        employee.setCreateUser(emId);
-        employee.setUpdateUser(emId);
         boolean isAdd = employeeService.save(employee);
         return R.success("添加成功");
     }
