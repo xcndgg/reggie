@@ -77,7 +77,8 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
         boolean b = this.updateById(dishDto);
         LambdaQueryWrapper<DishFlavor> queryWrapper = new LambdaQueryWrapper();
         queryWrapper.eq(DishFlavor::getDishId,dishDto.getId());
-        dishFlavorService.remove(queryWrapper);
+        boolean remove = dishFlavorService.removeById(dishDto.getId());
+        System.out.println(remove);
         List<DishFlavor> flavors = dishDto.getFlavors();
         for (DishFlavor flavor : flavors) {
             flavor.setDishId(dishDto.getCategoryId());

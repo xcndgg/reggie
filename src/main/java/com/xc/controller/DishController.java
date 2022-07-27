@@ -40,6 +40,15 @@ public class DishController {
 
         return R.success(dishDtoPage);
     }
+    @GetMapping("/list")
+    public R<List<Dish>> list(Dish dish){
+        LambdaQueryWrapper<Dish> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(dish.getCategoryId()!=null,Dish::getCategoryId,dish.getCategoryId());
+        lambdaQueryWrapper.eq(Dish::getStatus,1);
+        List<Dish> list = dishService.list(lambdaQueryWrapper);
+        return R.success(list);
+    }
+
     @PostMapping
     public R<String> addDish(@RequestBody DishDto dishDto){
         log.info(dishDto.toString());

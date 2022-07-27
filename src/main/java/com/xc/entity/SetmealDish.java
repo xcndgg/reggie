@@ -1,7 +1,9 @@
 package com.xc.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -16,9 +18,8 @@ public class SetmealDish implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
-
-
     //套餐id
+    @TableId(value = "setmeal_id",type =IdType.ASSIGN_ID)
     private Long setmealId;
 
 
